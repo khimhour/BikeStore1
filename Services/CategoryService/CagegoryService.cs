@@ -4,6 +4,7 @@ using BikeStores1.Data;
 using BikeStores1.Dto;
 using BikeStores1.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Formats.Tar;
 
 namespace BikeStores1.Services.CategoryService
 {
@@ -35,6 +36,33 @@ namespace BikeStores1.Services.CategoryService
             return serviceResponse;
         }
 
+        //public async Task<ServiceResponse<List<GetCategoryDto>>> DeleteCategory(long id)
+        //{
+        //    var serviceResponse = new ServiceResponse<List<GetCategoryDto>>();
+        //    try
+        //    {
+        //        var category =
+        //            await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+        //        if (category == null)
+        //        {
+        //            throw new Exception($"Category cannot find id : {id}");
+        //        }
+        //        _context.Categories.Remove(category);
+
+        //        await _context.SaveChangesAsync();
+
+        //        serviceResponse.Data =
+        //            await _context.Categories.Select(c => _mapper.Map<GetCategoryDto>(c)).ToListAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        serviceResponse.Success = false;
+        //        serviceResponse.Message = ex.Message;
+        //    }
+        //    return serviceResponse;
+        //}
+
+
         public async Task<ServiceResponse<List<GetCategoryDto>>> GetCategories()
         {
             var serviceResponse = new ServiceResponse<List<GetCategoryDto>>();
@@ -48,7 +76,7 @@ namespace BikeStores1.Services.CategoryService
             var serviceResponse = new ServiceResponse<GetCategoryDto>();
             try
             {
-                var dbCategory = await _context.Categories.FirstAsync(c => c.Id == id);
+                var dbCategory = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
                 if (dbCategory == null)
                 {
                     throw new Exception($"Categor cannot find id: {id}");
@@ -84,6 +112,7 @@ namespace BikeStores1.Services.CategoryService
                 serviceResponse.Data = _mapper.Map<GetCategoryDto>(category);
             } 
             catch (Exception ex)
+
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;

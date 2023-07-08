@@ -29,7 +29,20 @@ namespace BikeStores1.Controllers
         { 
             return Ok(await _categoryService.GetCategories());
         }
-        [HttpGet("{id}")] 
+        [HttpGet("{id}")]
+        ///////////////////
+        //public async Task<ActionResult<ServiceResponse<GetCategoryDto>>> Deletecategory(long id)
+        //{
+        //    var response = await _categoryService.DeleteCategory(id);
+        //    if (response.Data == null)
+        //    {
+        //        return NotFound(response);
+        //    }
+        //    return Ok(response);
+
+        //}
+        /////
+
         public async  Task<ActionResult<ServiceResponse<GetCategoryDto>>> GetById(long id)
         {
             var response = await _categoryService.GetCategoryById(id);
@@ -45,14 +58,17 @@ namespace BikeStores1.Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<GetCategoryDto>>> AddCategory(AddCategoryDto newCategory)
         {
-          
-
             return Ok(await _categoryService.AddCategory(newCategory));
         }
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse<GetCategoryDto>>> updateCategory (UpdateCategoryDto updateCategory)
         {
-            return Ok(_categoryService.UpdateCategory(updateCategory));
+            var response = await _categoryService.UpdateCategory(updateCategory);
+            if(response.Data == null)
+            {
+                return NotFound(null);
+            }
+            return Ok(response);
         }
     }
 }

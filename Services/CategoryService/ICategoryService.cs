@@ -10,5 +10,7 @@ namespace BikeStores1.Services.CategoryService
         Task<ServiceResponse<GetCategoryDto>> GetCategoryById(long id);
         Task<ServiceResponse<List<GetCategoryDto>>> AddCategory(AddCategoryDto newCategory);
         Task<ServiceResponse<GetCategoryDto>> UpdateCategory(UpdateCategoryDto updateCategory);
+        //Task<ServiceResponse<List<GetCategoryDto>>> DeleteCategory(long id);
+
     }
 }
